@@ -4,6 +4,8 @@
  * A Board class the PhraseSolverGame
  * 
  * Coded by: Jonathan Adrian and Aditya Das
+ *
+ * This class sets the board. It creates the solution phrase, and runs through any changes that happen. It is also what prints things out to the console for the player to play. It's basically the UI of the program.
  */
 import java.util.Scanner;
 import java.io.File;
@@ -19,10 +21,17 @@ public class  Board
     solvedPhrase = "";
     phrase = loadPhrase();
     setLetterValue();
-    System.out.println(phrase);
   }
   /* your code here - accessor(s) */
-  
+  public String getSolvedPhrase(){
+    return phrase;
+  }
+  public String getPartialPhrase(){
+    return solvedPhrase;
+  }
+  public int getLetterValue(){
+    return currentLetterValue;
+  }
   /* your code here - mutator(s)  */
 
 
@@ -89,24 +98,24 @@ public class  Board
     return tempPhrase;
   }  
 
-  public boolean guessLetter(String guess)
+  public boolean guessLetter(String guess) //declares the variable
   {
-    boolean foundLetter = false;
-    String newSolvedPhrase = "";
+    boolean foundLetter = false; // automatically sets the start to say tha the solution has not been found yet. This makes the game replayable.
+    String newSolvedPhrase = ""; //declares a new variable that will be used to replace the underscores with the letters that the user guesses.
     
-    for (int i = 0; i < phrase.length(); i++)
+    for (int i = 0; i < phrase.length(); i++) //for loop that goes through the solution phrase.
     {
-      if (phrase.substring(i, i + 1).equals(guess))
+      if (phrase.substring(i, i + 1).equals(guess)) //if statement that checks if the guess is equal to the letter in the solution phrase.
       {
-        newSolvedPhrase += guess + " ";
-        foundLetter = true;
+        newSolvedPhrase += guess + " "; //if the guess is equal to the letter in the solution phrase, the guess is added to the newSolved
+        foundLetter = true; //sets the foundLetter variable to true.
       }
-      else
+      else //if it wasn't equal to the letter in the solution phrase
       {
-        newSolvedPhrase += solvedPhrase.substring(i * 2, i * 2 + 1) + " ";  
+        newSolvedPhrase += solvedPhrase.substring(i * 2, i * 2 + 1) + " ";  //the underscore is added to the newSolvedPhrase.
       }
     }
-    solvedPhrase = newSolvedPhrase;
-    return foundLetter;
+    solvedPhrase = newSolvedPhrase; //sets the solvedPhrase to the variable with the letters guessed in the word.
+    return foundLetter; //returns if the user got the entire word.
   } 
 } 

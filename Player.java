@@ -26,4 +26,7 @@ public class Player
     return score;
   }
   /* your code here - mutator(s) */ 
+  public void addScore(int value){
+    score += value;
+  }
 }
