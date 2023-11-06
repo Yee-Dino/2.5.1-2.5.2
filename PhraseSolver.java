@@ -32,6 +32,7 @@ public class PhraseSolver
     Scanner input = new Scanner(System.in);
     
     boolean correct = true;
+    boolean tempCorrect;
     while (!solved) 
     {
       
@@ -57,9 +58,19 @@ public class PhraseSolver
 
       //gets user guess
       String guess = input.nextLine(); // player inputs their guess
+
+      if(game.getPartialPhrase().contains(guess)){ // checks to see if the guess was a repeat
+        tempCorrect = false;
+
+      }
+      else{
+        tempCorrect = true;
+      }
+      
       correct = game.guessLetter(guess); //checks if the word had the guess in it
-      
-      
+      if(tempCorrect == false){ // makes it an invalid guess when the guess is a repeat
+        correct = tempCorrect;
+      }
       //checks if we should switch players
       if(!correct && !game.isSolved(guess)){
         if(currentPlayer == 1){
@@ -70,9 +81,13 @@ public class PhraseSolver
           currentPlayer = 1;
         }
       }
+      //checks to see if there's a repeat letter 
+
       //checks for points gained and adds points to players accordingly
       else{
+
         if(currentPlayer == 1){
+          
           player1.addScore(game.getLetterValue());
           System.out.println(player1.getPlayer() + " scored " + game.getLetterValue() + " points!");
         }
